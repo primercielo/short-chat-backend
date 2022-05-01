@@ -43,7 +43,7 @@ setInterval(() => {
     alert(null);
     message.push({
       id: 456789,
-      chat: "previous messages erased ✔",
+      chat: "previous messages erased ✅",
       createdAt: Date.now(),
     });
     io.emit("chat message", message);
