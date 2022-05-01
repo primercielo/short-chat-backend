@@ -56,16 +56,16 @@ io.on("connection", (socket) => {
   io.emit("chat message", message);
 
   console.log(socket.id);
-  const readStream = fs.createReadStream(path.resolve(__dirname, "./img.jpg"), {
-      encoding: "binary",
-    }),
-    chunks = [];
-  let delay = 0;
-  readStream.on("data", function (chunk) {
-    chunks.push(chunk);
+  // const readStream = fs.createReadStream(path.resolve(__dirname, "./img.jpg"), {
+  //     encoding: "binary",
+  //   }),
+  //   chunks = [];
+  // let delay = 0;
+  // readStream.on("data", function (chunk) {
+  //   chunks.push(chunk);
 
-    socket.emit("img-chunk", chunk);
-  });
+  //   socket.emit("img-chunk", chunk);
+  // });
   socket.on("chat message", (msg) => {
     message.push(msg);
     console.log(message);
