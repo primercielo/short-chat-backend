@@ -26,7 +26,7 @@ let message = [];
 
 message.push({
   id: 456789,
-  chat: "Welcome to most secure chat app in the world 🎉. After, every 10 minutes, all of the chat messages will be erased.",
+  chat: "🔒 Welcome to most secure  chat app in the world 🎉. After, every 10 minutes, all of the chat messages will be erased.",
   createdAt: Date.now(),
 });
 
