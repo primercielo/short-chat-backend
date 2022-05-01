@@ -71,6 +71,9 @@ io.on("connection", (socket) => {
     console.log(message);
     io.emit("chat message", message);
   });
+  socket.on("typing", function (isTyping) {
+    io.emit("typing", isTyping);
+  });
 });
 
 http.listen(port, () => {
