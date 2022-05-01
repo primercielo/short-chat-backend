@@ -41,6 +41,12 @@ setInterval(() => {
   alert(msg);
   setTimeout(() => {
     alert(null);
+    message.push({
+      id: 456789,
+      chat: "previous messages erased ✔",
+      createdAt: Date.now(),
+    });
+    io.emit("chat message", message);
   }, 3000);
 }, 600000);
 
