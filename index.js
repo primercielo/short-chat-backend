@@ -1,7 +1,7 @@
 const app = require("express")();
 const http = require("http").Server(app);
 const io = require("socket.io")(http, {
-  cors: { origins: ["http://localhost:3000"] },
+  cors: { origins: ["https://short-chat.vercel.app/"] },
 });
 const cors = require("cors");
 const fs = require("fs"),
