@@ -3,11 +3,11 @@ const http = require("http").Server(app);
 const io = require("socket.io")(http, {
   cors: { origins: ["https://short-chat-n.vercel.app/"] },
 });
-
+const cors = require("cors");
 const { ExpressPeerServer } = require("peer");
 
 const peerServer = ExpressPeerServer(http, { debug: true });
-
+app.use(cors());
 app.use("/peerjs", peerServer);
 const port = process.env.PORT || 8080;
 
