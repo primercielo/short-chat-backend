@@ -3,11 +3,18 @@ const http = require("http").Server(app);
 const io = require("socket.io")(http, {
   cors: { origins: ["https://short-chat.vercel.app/"] },
 });
+
+const { ExpressPeerServer } = require("peer");
+
+const peerServer = ExpressPeerServer(http, { debug: true });
+
 const cors = require("cors");
 const fs = require("fs"),
   path = require("path");
 
 const port = process.env.PORT || 8080;
+
+app.use("/peerjs", peerServer);
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
@@ -66,6 +73,21 @@ io.on("connection", (socket) => {
 
   //   socket.emit("img-chunk", chunk);
   // });
+
+  socket.on("calling", (caller) => {
+    io.emit("incoming-call", caller);
+  });
+
+  socket.on("close-call", (id) => {
+    io.emit("close-call", id);
+  });
+  socket.on("call-end", (id) => {
+    io.emit("call-end", id);
+  });
+  socket.on("call-received", (id) => {
+    io.emit("call-received", id);
+  });
+
   socket.on("chat message", (msg) => {
     message.push(msg);
     console.log(message);
@@ -73,6 +95,13 @@ io.on("connection", (socket) => {
   });
   socket.on("typing", function (isTyping) {
     io.emit("typing", isTyping);
+  });
+
+  // for audio call
+  socket.on("join", (userId) => {
+    console.log(userId, "connected");
+    io.emit("user-connected", userId);
+    console.log("user-connected fired");
   });
 });
 
