@@ -111,6 +111,9 @@ io.on("connection", (socket) => {
   socket.on("call-close", (action) => {
     io.emit("call-close", action);
   });
+  socket.on("all-mic", (action) => {
+    io.emit("all-mic", action);
+  });
 });
 
 http.listen(port, () => {
