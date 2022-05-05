@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/:pass", (req, res) => {
-  if (req.params.pass == 63952) {
+  if (req.params.pass == 45456) {
     res.status(200).send(false);
   } else {
     res.status(200).send(true);
