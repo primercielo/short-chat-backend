@@ -15,6 +15,13 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
+app.get("/:pass", (req, res) => {
+  if (req.params.pass == 63952) {
+    res.status(200).send(true);
+  }
+  res.status(406).send(false);
+});
+
 // function startTimer(params) {
 //   var clearTime = setInterval(() => {
 //     io.emit("timer", i++);
@@ -119,12 +126,12 @@ io.on("connection", (socket) => {
   socket.on("all-mic-on", (action) => {
     io.emit("all-mic-on", action);
   });
-  socket.on("connect", function () {
+  socket.on("connects", function () {
     connectCounter++;
     console.log("Total Connected User: ", connectCounter);
     io.emit("total-user", connectCounter);
   });
-  socket.on("disconnect", function () {
+  socket.on("disconnects", function () {
     connectCounter--;
     console.log("Total Connected User: ", connectCounter);
     io.emit("total-user", connectCounter);
