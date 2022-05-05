@@ -53,8 +53,9 @@ setInterval(() => {
 }, 600000);
 
 let i = 0;
-
+let connectCounter = 0;
 io.on("connection", (socket) => {
+  connectCounter++;
   socket.on("abc", (n) => {
     console.log("abc", n);
   });
@@ -117,6 +118,16 @@ io.on("connection", (socket) => {
   // after receive call on both party mic
   socket.on("all-mic-on", (action) => {
     io.emit("all-mic-on", action);
+  });
+  socket.on("connect", function () {
+    connectCounter++;
+    console.log("Total Connected User: ", connectCounter);
+    io.emit("total-user", connectCounter);
+  });
+  socket.on("disconnect", function () {
+    connectCounter--;
+    console.log("Total Connected User: ", connectCounter);
+    io.emit("total-user", connectCounter);
   });
 });
 
