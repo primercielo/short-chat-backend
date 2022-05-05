@@ -55,6 +55,9 @@ setInterval(() => {
 let i = 0;
 
 io.on("connection", (socket) => {
+  socket.on("abc", (n) => {
+    console.log("abc", n);
+  });
   io.emit("chat message", message);
 
   console.log(socket.id);
@@ -70,6 +73,7 @@ io.on("connection", (socket) => {
   // });
 
   socket.on("calling", (caller) => {
+    console.log("Calling...");
     io.emit("incoming-call", caller);
   });
 
@@ -97,6 +101,11 @@ io.on("connection", (socket) => {
     console.log(userId, "connected");
     io.emit("user-connected", userId);
     console.log("user-connected fired");
+  });
+
+  socket.on("get-peer-id", (id) => {
+    console.log("get-peer-id ", id);
+    io.emit("get-peer-id", id);
   });
 });
 
