@@ -107,6 +107,10 @@ io.on("connection", (socket) => {
     console.log("get-peer-id ", id);
     io.emit("get-peer-id", id);
   });
+
+  socket.on("call-close", (action) => {
+    io.emit("call-close", action);
+  });
 });
 
 http.listen(port, () => {
