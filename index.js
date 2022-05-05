@@ -1,7 +1,7 @@
 const app = require("express")();
 const http = require("http").Server(app);
 const io = require("socket.io")(http, {
-  cors: { origins: ["https://short-chat.vercel.app/"] },
+  cors: { origins: ["https://short-chat-n.vercel.app/"] },
 });
 
 const { ExpressPeerServer } = require("peer");
