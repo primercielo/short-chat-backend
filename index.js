@@ -8,13 +8,8 @@ const { ExpressPeerServer } = require("peer");
 
 const peerServer = ExpressPeerServer(http, { debug: true });
 
-const cors = require("cors");
-const fs = require("fs"),
-  path = require("path");
-
-const port = process.env.PORT || 8080;
-
 app.use("/peerjs", peerServer);
+const port = process.env.PORT || 8080;
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
