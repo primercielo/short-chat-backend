@@ -114,6 +114,10 @@ io.on("connection", (socket) => {
   socket.on("all-mic", (action) => {
     io.emit("all-mic", action);
   });
+  // after receive call on both party mic
+  socket.on("all-mic-on", (action) => {
+    io.emit("all-mic-on", action);
+  });
 });
 
 http.listen(port, () => {
