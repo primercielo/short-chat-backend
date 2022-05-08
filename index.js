@@ -3,7 +3,7 @@ const app = express();
 const http = require("http").Server(app);
 
 const io = require("socket.io")(http, {
-  cors: { origins: ["https://short-chat.vercel.app/"] },
+  cors: { origins: ["https://short-chat.vercel.app"] },
 });
 
 const cors = require("cors");
