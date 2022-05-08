@@ -14,7 +14,9 @@ exports.createImage = async (req, res) => {
 
 exports.getAllImages = async (req, res) => {
   try {
-    const response = await Image.findAndCountAll();
+    const response = await Image.findAndCountAll({
+      order: [["createdAt", "DESC"]],
+    });
     res.status(200).send(response);
   } catch (error) {
     res.status(200).send({ message: "Error! while in getAllImages()" });
