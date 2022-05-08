@@ -13,7 +13,7 @@ const { ExpressPeerServer } = require("peer");
 const peerServer = ExpressPeerServer(http, { debug: true });
 
 let corsOptions = {
-  origin: "https://short-chat.vercel.app",
+  origin: "https://short-chat.vercel.app/",
   optionsSuccessStatus: 200,
 };
 
