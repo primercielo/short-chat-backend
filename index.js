@@ -12,8 +12,19 @@ const { ExpressPeerServer } = require("peer");
 
 const peerServer = ExpressPeerServer(http, { debug: true });
 
+var whitelist = ["https://short-chat.vercel.app", "http://localhost:3000"];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
 // middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use("/peerjs", peerServer);
 
