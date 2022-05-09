@@ -47,15 +47,24 @@ const image = require("./app/internal-controller/images.internal");
 var ips = [];
 var c = 0;
 app.get("/:pass", (req, res) => {
-  let ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
-  let ip = ips.find((item) => item.ip == ipAd);
-  let index = ips.findIndex((x) => x.ip === ip.ip);
-  console.log("Requester IP: ", ipAd);
-  if (index) {
-    ips[index].c += 1;
-  } else {
-    ips.push({ c: c++, ip: ip });
-  }
+  // let ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
+  // let ip = ips.find((item) => item.ip == ipAd);
+  // let index = ips.findIndex((x) => x.ip === ip.ip);
+  // console.log(index);
+  // console.log("Requester IP: ", ipAd);
+  // if (index !== -1 || index === 0) {
+  //   console.log("in");
+  //   ips[index].c += 1;
+  //   if (ips[index].c > 6) {
+  //     console.log("You are blocked for 30 sec");
+  //     setTimeout(() => {
+  //       ips[index].c === 0;
+  //     }, 30000);
+  //   }
+  // } else {
+  //   ips.push({ c: c++, ip: ipAd });
+  // }
+  // ips.push({ c: c++, ip: ipAd });
   console.log("Total IP list: ", ips);
   if (req.params.pass == 63952) {
     res.status(200).send(false);
