@@ -44,13 +44,13 @@ require("./app/routes/images.protected")(app);
 const image = require("./app/internal-controller/images.internal");
 // end database
 
-let ips = [];
-let c = 0;
+var ips = [];
+var c = 0;
 app.get("/:pass", (req, res) => {
   let ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   let ip = ips.find((item) => item.ip == ipAd);
   let index = ips.findIndex((x) => x.ip === ip.ip);
-  console.log("Requester IP: ", ip);
+  console.log("Requester IP: ", ipAd);
   if (index) {
     ips[index].c += 1;
   } else {
