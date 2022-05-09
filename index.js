@@ -48,9 +48,9 @@ let ips = [];
 let c = 0;
 app.get("/:pass", (req, res) => {
   let ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
-  console.log("Requester IP: ", ip);
   let ip = ips.find((item) => item.ip == ipAd);
   let index = ips.findIndex((x) => x.ip === ip.ip);
+  console.log("Requester IP: ", ip);
   if (index) {
     ips[index].c += 1;
   } else {
