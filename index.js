@@ -45,6 +45,8 @@ const image = require("./app/internal-controller/images.internal");
 // end database
 
 app.get("/:pass", (req, res) => {
+  var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
+  console.log("Requester IP: ", ip);
   if (req.params.pass == 63952) {
     res.status(200).send(false);
   } else {
