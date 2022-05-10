@@ -12,11 +12,6 @@ const { ExpressPeerServer } = require("peer");
 
 const peerServer = ExpressPeerServer(http, { debug: true });
 
-// let corsOptions = {
-//   origin: "https://short-chat.vercel.app",
-//   optionsSuccessStatus: 200,
-// };
-
 var whitelist = ["https://short-chat.vercel.app", "http://localhost:3000"];
 var corsOptions = {
   origin: function (origin, callback) {
@@ -42,16 +37,19 @@ app.get("/", (req, res) => {
 // database
 require("./app/routes/images.protected")(app);
 const image = require("./app/internal-controller/images.internal");
+const { lookup } = require("geoip-lite");
 // end database
 
 var ips = [];
 var c = 0;
 app.get("/:pass", (req, res) => {
-  // let ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
+  let ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   // let ip = ips.find((item) => item.ip == ipAd);
   // let index = ips.findIndex((x) => x.ip === ip.ip);
   // console.log(index);
-  // console.log("Requester IP: ", ipAd);
+  console.log("Requester IP: ", ipAd);
+  console.log("Location: ", lookup(ipAd));
+
   // if (index !== -1 || index === 0) {
   //   console.log("in");
   //   ips[index].c += 1;
