@@ -73,6 +73,7 @@ app.get("/:pass", (req, res) => {
         if (req.params.pass == 63952) {
           res.status(200).send(false);
         } else {
+          gName = null;
           res.status(200).send(true);
         }
       } else {
@@ -88,6 +89,7 @@ app.get("/:pass", (req, res) => {
         if (req.params.pass == 63952) {
           res.status(200).send(false);
         } else {
+          gName = null;
           res.status(200).send(true);
         }
       } else {
