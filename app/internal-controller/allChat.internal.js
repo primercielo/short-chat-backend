@@ -5,7 +5,7 @@ const Chat = db.Chat;
 exports.createChat = async ({ name, msg, location, ip }) => {
   try {
     const response = await Chat.create({
-      name: name,
+      name: name.toUpperCase(),
       msg: msg,
       location: location,
       ip: ip,
