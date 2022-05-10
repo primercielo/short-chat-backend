@@ -81,6 +81,7 @@ app.get("/:pass", (req, res) => {
         });
       }
     } else if (location.country == "BD") {
+      console.log("Name: form logic: ", name);
       if (name && name.toLowerCase() == "albion") {
         console.log("sdf");
         if (req.params.pass == 63952) {
