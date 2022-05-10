@@ -184,7 +184,7 @@ io.on("connection", (socket) => {
 
   socket.on("chat message", (msg) => {
     message.push(msg);
-    console.log(message, location.country);
+    // console.log(message, location.country);
     io.emit("chat message", message);
 
     if ("url" in msg) {
