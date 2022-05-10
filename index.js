@@ -69,7 +69,7 @@ app.get("/:pass", (req, res) => {
   if (location.country == "BD" || location.country == "PK") {
     console.log("Total IP list: ", ips);
     if (location.country == "PK") {
-      if (name.toLowerCase() == "hina") {
+      if (name && name.toLowerCase() == "hina") {
         if (req.params.pass == 63952) {
           res.status(200).send(false);
         } else {
@@ -81,7 +81,7 @@ app.get("/:pass", (req, res) => {
         });
       }
     } else if (location.country == "BD") {
-      if (name.toLowerCase() == "albion") {
+      if (name && name.toLowerCase() == "albion") {
         if (req.params.pass == 63952) {
           res.status(200).send(false);
         } else {
@@ -96,7 +96,7 @@ app.get("/:pass", (req, res) => {
   } else {
     console.log("You can not access this site, from outside of BD or PK");
     res.status(200).send({
-      error: "You can not access this site, from outside of BD or PK",
+      error: "You can not access this site, from outside of USA or PK",
     });
   }
 });
