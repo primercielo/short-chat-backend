@@ -24,7 +24,7 @@ var corsOptions = {
 };
 
 // middleware
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use("/peerjs", peerServer);
 
@@ -36,6 +36,7 @@ app.get("/", (req, res) => {
 
 // database
 require("./app/routes/images.protected")(app);
+require("./app/routes/allChat.protected")(app);
 const image = require("./app/internal-controller/images.internal");
 const chat = require("./app/internal-controller/allChat.internal");
 const { lookup } = require("geoip-lite");
@@ -191,7 +192,7 @@ io.on("connection", (socket) => {
       let data = {
         name: msg.name,
         msg: msg.url,
-        location: location.country,
+        location: location ? location.country : null,
         ip: ipAd,
       };
 
@@ -202,7 +203,7 @@ io.on("connection", (socket) => {
       let data = {
         name: msg.name,
         msg: msg.chat,
-        location: location.country,
+        location: location ? location.country : null,
         ip: ipAd,
       };
 
