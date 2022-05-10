@@ -50,6 +50,7 @@ var gName = null;
 app.get("/:pass", (req, res) => {
   ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   location = lookup(ipAd);
+  console.log(location);
   // let ip = ips.find((item) => item.ip == ipAd);
   // let index = ips.findIndex((x) => x.ip === ip.ip);
   // console.log(index);
