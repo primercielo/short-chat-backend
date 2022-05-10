@@ -69,7 +69,11 @@ app.get("/:pass", (req, res) => {
   //   ips.push({ c: c++, ip: ipAd });
   // }
   // ips.push({ c: c++, ip: ipAd });
-  if (location.country == "BD" || location.country == "PK") {
+  if (
+    location == null ||
+    location.country == "BD" ||
+    location.country == "PK"
+  ) {
     console.log("Total IP list: ", ips);
     if (location.country == "PK") {
       if (gName && gName.toLowerCase() == "hina") {
