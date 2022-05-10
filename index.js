@@ -71,10 +71,8 @@ app.get("/:pass", (req, res) => {
     if (location.country == "PK") {
       if (gName && gName.toLowerCase() == "hina") {
         if (req.params.pass == 63952) {
-          gName = null;
           res.status(200).send(false);
         } else {
-          gName = null;
           res.status(200).send(true);
         }
       } else {
@@ -88,10 +86,8 @@ app.get("/:pass", (req, res) => {
       if (gName && gName.toLowerCase() == "albion") {
         console.log("sdf");
         if (req.params.pass == 63952) {
-          gName = null;
           res.status(200).send(false);
         } else {
-          gName = null;
           res.status(200).send(true);
         }
       } else {
