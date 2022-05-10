@@ -76,6 +76,7 @@ app.get("/:pass", (req, res) => {
           res.status(200).send(true);
         }
       } else {
+        gName = null;
         res.status(200).send({
           error: `Name should be Hina ♥`,
         });
@@ -90,6 +91,7 @@ app.get("/:pass", (req, res) => {
           res.status(200).send(true);
         }
       } else {
+        gName = null;
         res.status(200).send({
           error: `Name should be Albion 😉`,
         });
