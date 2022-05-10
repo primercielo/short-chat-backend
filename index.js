@@ -43,7 +43,7 @@ const { lookup } = require("geoip-lite");
 var ips = [];
 var c = 0;
 let location;
-let name;
+var gName = null;
 app.get("/:pass", (req, res) => {
   let ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   location = lookup(ipAd);
@@ -69,7 +69,7 @@ app.get("/:pass", (req, res) => {
   if (location.country == "BD" || location.country == "PK") {
     console.log("Total IP list: ", ips);
     if (location.country == "PK") {
-      if (name && name.toLowerCase() == "hina") {
+      if (gName && gName.toLowerCase() == "hina") {
         if (req.params.pass == 63952) {
           res.status(200).send(false);
         } else {
@@ -81,8 +81,8 @@ app.get("/:pass", (req, res) => {
         });
       }
     } else if (location.country == "BD") {
-      console.log("Name: form logic: ", name);
-      if (name && name.toLowerCase() == "albion") {
+      console.log("Name: form logic: ", gName);
+      if (gName && gName.toLowerCase() == "albion") {
         console.log("sdf");
         if (req.params.pass == 63952) {
           res.status(200).send(false);
@@ -143,8 +143,8 @@ let connectCounter = 0;
 
 io.on("connection", (socket) => {
   socket.on("get-name", (name) => {
-    name = name;
-    console.log("Entered name: ", name);
+    gName = name;
+    console.log("Entered name: ", gName);
   });
   connectCounter++;
 
