@@ -80,7 +80,7 @@ app.get("/:pass", (req, res) => {
           error: `Name should be Hina ♥`,
         });
       }
-    } else if (location.country == "PK") {
+    } else if (location.country == "BD") {
       if (name.toLowerCase() == "albion") {
         if (req.params.pass == 63952) {
           res.status(200).send(false);
@@ -142,6 +142,7 @@ let connectCounter = 0;
 io.on("connection", (socket) => {
   socket.on("get-name", (name) => {
     name = name;
+    console.log("Entered name: ", name);
   });
   connectCounter++;
 
