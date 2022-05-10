@@ -72,6 +72,7 @@ app.get("/:pass", (req, res) => {
       res.status(200).send(true);
     }
   } else {
+    console.log("You can not access this site, from outside of BD or PK");
     res.status(200).send({
       error: "You can not access this site, from outside of BD or PK",
     });
