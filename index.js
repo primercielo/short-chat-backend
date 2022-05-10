@@ -49,6 +49,7 @@ app.get("/:pass", (req, res) => {
   // console.log(index);
   console.log("Requester IP: ", ipAd);
   console.log("Location: ", lookup(ipAd));
+  let location = lookup(ipAd);
 
   // if (index !== -1 || index === 0) {
   //   console.log("in");
@@ -63,11 +64,15 @@ app.get("/:pass", (req, res) => {
   //   ips.push({ c: c++, ip: ipAd });
   // }
   // ips.push({ c: c++, ip: ipAd });
-  console.log("Total IP list: ", ips);
-  if (req.params.pass == 63952) {
-    res.status(200).send(false);
-  } else {
+  if (location.country == "BD") {
     res.status(200).send(true);
+  } else {
+    console.log("Total IP list: ", ips);
+    if (req.params.pass == 63952) {
+      res.status(200).send(false);
+    } else {
+      res.status(200).send(true);
+    }
   }
 });
 
