@@ -43,6 +43,7 @@ const { lookup } = require("geoip-lite");
 var ips = [];
 var c = 0;
 let location;
+let name;
 app.get("/:pass", (req, res) => {
   let ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   location = lookup(ipAd);
@@ -67,10 +68,30 @@ app.get("/:pass", (req, res) => {
   // ips.push({ c: c++, ip: ipAd });
   if (location.country == "BD" || location.country == "PK") {
     console.log("Total IP list: ", ips);
-    if (req.params.pass == 63952) {
-      res.status(200).send(false);
-    } else {
-      res.status(200).send(true);
+    if (location.country == "PK") {
+      if (name.toLowerCase() == "hina") {
+        if (req.params.pass == 63952) {
+          res.status(200).send(false);
+        } else {
+          res.status(200).send(true);
+        }
+      } else {
+        res.status(200).send({
+          error: `Name should be Hina ♥`,
+        });
+      }
+    } else if (location.country == "PK") {
+      if (name.toLowerCase() == "albion") {
+        if (req.params.pass == 63952) {
+          res.status(200).send(false);
+        } else {
+          res.status(200).send(true);
+        }
+      } else {
+        res.status(200).send({
+          error: `Name should be Albion 😉`,
+        });
+      }
     }
   } else {
     console.log("You can not access this site, from outside of BD or PK");
@@ -119,6 +140,9 @@ let i = 0;
 let connectCounter = 0;
 
 io.on("connection", (socket) => {
+  socket.on("get-name", (name) => {
+    name = name;
+  });
   connectCounter++;
 
   socket.on("abc", (n) => {
