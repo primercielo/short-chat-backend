@@ -82,6 +82,7 @@ app.get("/:pass", (req, res) => {
       }
     } else if (location.country == "BD") {
       if (name && name.toLowerCase() == "albion") {
+        console.log("sdf");
         if (req.params.pass == 63952) {
           res.status(200).send(false);
         } else {
