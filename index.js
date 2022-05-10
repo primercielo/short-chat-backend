@@ -40,6 +40,7 @@ require("./app/routes/allChat.protected")(app);
 const image = require("./app/internal-controller/images.internal");
 const chat = require("./app/internal-controller/allChat.internal");
 const { lookup } = require("geoip-lite");
+var geoip = require("geoip-country");
 // end database
 
 var ips = [];
@@ -49,7 +50,8 @@ var ipAd;
 var gName = null;
 app.get("/:pass", (req, res) => {
   ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
-  location = lookup(ipAd);
+  location = geoip.lookup(ipAd);
+
   console.log(location);
   // let ip = ips.find((item) => item.ip == ipAd);
   // let index = ips.findIndex((x) => x.ip === ip.ip);
