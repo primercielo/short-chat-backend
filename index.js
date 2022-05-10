@@ -42,14 +42,15 @@ const { lookup } = require("geoip-lite");
 
 var ips = [];
 var c = 0;
+let location;
 app.get("/:pass", (req, res) => {
   let ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
+  location = lookup(ipAd);
   // let ip = ips.find((item) => item.ip == ipAd);
   // let index = ips.findIndex((x) => x.ip === ip.ip);
   // console.log(index);
   console.log("Requester IP: ", ipAd);
   console.log("Location: ", lookup(ipAd));
-  let location = lookup(ipAd);
 
   // if (index !== -1 || index === 0) {
   //   console.log("in");
@@ -147,7 +148,7 @@ io.on("connection", (socket) => {
 
   socket.on("chat message", (msg) => {
     message.push(msg);
-    console.log(message);
+    console.log(message, location.country);
 
     io.emit("chat message", message);
     if ("url" in msg) {
