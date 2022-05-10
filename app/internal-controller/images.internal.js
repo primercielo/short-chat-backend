@@ -1,3 +1,5 @@
+// without relation controller
+
 const db = require("../initialize/db.initialize");
 const Image = db.Image;
 

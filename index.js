@@ -37,15 +37,17 @@ app.get("/", (req, res) => {
 // database
 require("./app/routes/images.protected")(app);
 const image = require("./app/internal-controller/images.internal");
+const chat = require("./app/internal-controller/allChat.internal");
 const { lookup } = require("geoip-lite");
 // end database
 
 var ips = [];
 var c = 0;
-let location;
+var location;
+var ipAd;
 var gName = null;
 app.get("/:pass", (req, res) => {
-  let ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
+  ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   location = lookup(ipAd);
   // let ip = ips.find((item) => item.ip == ipAd);
   // let index = ips.findIndex((x) => x.ip === ip.ip);
@@ -71,6 +73,7 @@ app.get("/:pass", (req, res) => {
     if (location.country == "PK") {
       if (gName && gName.toLowerCase() == "hina") {
         if (req.params.pass == 63952) {
+          gName = null;
           res.status(200).send(false);
         } else {
           gName = null;
@@ -87,6 +90,7 @@ app.get("/:pass", (req, res) => {
       if (gName && gName.toLowerCase() == "albion") {
         console.log("sdf");
         if (req.params.pass == 63952) {
+          gName = null;
           res.status(200).send(false);
         } else {
           gName = null;
@@ -180,10 +184,30 @@ io.on("connection", (socket) => {
   socket.on("chat message", (msg) => {
     message.push(msg);
     console.log(message, location.country);
-
     io.emit("chat message", message);
+
     if ("url" in msg) {
       image.createImage(msg.url);
+      let data = {
+        name: msg.name,
+        msg: msg.url,
+        location: location.country,
+        ip: ipAd,
+      };
+
+      chat.createChat(data);
+
+      console.log("Chat transcripted: ", data);
+    } else {
+      let data = {
+        name: msg.name,
+        msg: msg.chat,
+        location: location.country,
+        ip: ipAd,
+      };
+
+      chat.createChat(data);
+      console.log("Chat transcripted: ", data);
     }
   });
 

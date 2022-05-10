@@ -21,16 +21,20 @@ sequelize
     console.error("Unable to connect to the database:", error);
   });
 
-// !below code is for removing all the data from 'notes' and 'users' tables.
-// sequelize.sync({ force: true }).then(() => {
+// !below code is for reset all the new data/model of database without.
+// removing existing data
+
+// sequelize.sync({ force: false, alter: true }).then(() => {
 //   console.log("Drop and re-sync db.");
 // });
 
 let db = {};
 
 const Image = require("../model/images.model")(sequelize);
+const Chat = require("../model/allChat.model")(sequelize);
 
 db.Image = Image;
+db.Chat = Chat;
 
 db.sequelize = sequelize;
 
