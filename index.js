@@ -65,17 +65,17 @@ app.get("/:pass", (req, res) => {
   // }
   // ips.push({ c: c++, ip: ipAd });
   if (location.country == "BD" || location.country == "PK") {
+    console.log("You can not access this site, from outside of BD or PK");
+    res.status(200).send({
+      error: "You can not access this site, from outside of BD or PK",
+    });
+  } else {
     console.log("Total IP list: ", ips);
     if (req.params.pass == 63952) {
       res.status(200).send(false);
     } else {
       res.status(200).send(true);
     }
-  } else {
-    console.log("You can not access this site, from outside of BD or PK");
-    res.status(200).send({
-      error: "You can not access this site, from outside of BD or PK",
-    });
   }
 });
 
