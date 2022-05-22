@@ -12,7 +12,11 @@ const { ExpressPeerServer } = require("peer");
 
 const peerServer = ExpressPeerServer(http, { debug: true });
 
-var whitelist = ["https://short-chat.vercel.app", "http://localhost:3000"];
+var whitelist = [
+  "https://short-chat.vercel.app",
+  "https://l-c.vercel.app",
+  "http://localhost:3000",
+];
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
