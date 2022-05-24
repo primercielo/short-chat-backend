@@ -29,6 +29,7 @@ var corsOptions = {
 
 // middleware
 app.use(cors(corsOptions));
+// app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use("/peerjs", peerServer);
 
@@ -41,8 +42,10 @@ app.get("/", (req, res) => {
 // database
 require("./app/routes/images.protected")(app);
 require("./app/routes/allChat.protected")(app);
+require("./app/routes/social.protected")(app);
 const image = require("./app/internal-controller/images.internal");
 const chat = require("./app/internal-controller/allChat.internal");
+const social = require("./app/internal-controller/social.internal");
 const { lookup } = require("geoip-lite");
 var geoip = require("geoip-country");
 // end database
@@ -260,6 +263,11 @@ io.on("connection", (socket) => {
     connectCounter--;
     console.log("Total Connected User: ", connectCounter);
     io.emit("total-user", connectCounter);
+  });
+
+  socket.on("social-post", (post) => {
+    social.createPost(post);
+    io.emit("social-post");
   });
 });
 

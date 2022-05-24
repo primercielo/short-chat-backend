@@ -21,7 +21,7 @@ sequelize
     console.error("Unable to connect to the database:", error);
   });
 
-// !below code is for reset all the new data/model of database without.
+// !below code is for reset all the new data/model of database without
 // removing existing data
 
 // sequelize.sync({ force: false, alter: true }).then(() => {
@@ -32,9 +32,11 @@ let db = {};
 
 const Image = require("../model/images.model")(sequelize);
 const Chat = require("../model/allChat.model")(sequelize);
+const Social = require("../model/social.model")(sequelize);
 
 db.Image = Image;
 db.Chat = Chat;
+db.Social = Social;
 
 db.sequelize = sequelize;
 
