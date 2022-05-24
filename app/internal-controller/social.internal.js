@@ -9,9 +9,9 @@ exports.createPost = async (data) => {
       imgUrl: data.imgUrl,
     });
     if (social) {
-      res.status(200).send({ message: "Successfully posted" });
+      console.log({ message: "Successfully posted" });
     }
   } catch (error) {
-    res.status(200).send({ error: `Failed to post ${error}` });
+    console.log({ error: `Failed to post ${error}` });
   }
 };

@@ -30,11 +30,11 @@ exports.getPosts = async (req, res) => {
   }
 };
 
-// exports.socialDeleteAllPost = async (req, res) => {
-//   try {
-//     const social = await Social.destroy({ truncate: true });
-//     res.status(200).send(social);
-//   } catch (error) {
-//     res.status(200).send({ error: `Failed to delete, ${error}` });
-//   }
-// };
+exports.socialDeleteAllPost = async (req, res) => {
+  try {
+    const social = await Social.destroy({ truncate: true });
+    res.status(200).send(social);
+  } catch (error) {
+    res.status(200).send({ error: `Failed to delete, ${error}` });
+  }
+};
