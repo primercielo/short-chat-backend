@@ -3,10 +3,12 @@ const Social = db.Social;
 
 exports.createPost = async (data) => {
   try {
+    console.log(data);
     const social = await Social.create({
       postedBy: data.postedBy,
       post: data.post,
       imgUrl: data.imgUrl,
+      userId: data.userId,
     });
     if (social) {
       console.log({ message: "Successfully posted" });

@@ -7,6 +7,7 @@ exports.createPost = async (req, res) => {
       postedBy: req.body.postedBy,
       post: req.body.post,
       imgUrl: req.body.imgUrl,
+      userId: req.body.userId,
     });
     if (social) {
       res.status(200).send({ message: "Successfully posted" });
