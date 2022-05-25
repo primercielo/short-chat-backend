@@ -25,9 +25,26 @@ exports.createUser = async (req, res) => {
       imgURL: req.body.imgURL,
       admin: req.body.admin ? req.body.admin : false,
     });
+
+    let token = jwt.sign(
+      {
+        id: user.id,
+        name: user.name,
+      },
+      credential.SECRET,
+      { expiresIn: "48h" }
+    );
+
     console.log({ message: `User successfully created ${user}` });
 
-    res.status(200).send({ message: "User successfully created" });
+    res.status(200).send({
+      id: user.id,
+      name: user.name.toLowerCase(),
+      imgURL: user.imgURL,
+      admin: user.admin,
+      accessToken: token,
+      login: true,
+    });
   } catch (error) {
     res.status(200).send({ error: `Error! while in getAllChat(), ${error}` });
   }
@@ -46,7 +63,7 @@ exports.signIn = async (req, res) => {
     }
     // console.log(user);
     if (!compare(req.body.password, user.password)) {
-      res.status(200).send({ accessToken: null, error: "Invalid Password" });
+      res.status(200).send({ error: "Invalid Password" });
     }
 
     let token = jwt.sign(
@@ -65,6 +82,7 @@ exports.signIn = async (req, res) => {
         imgURL: user.imgURL,
         admin: user.admin,
         accessToken: token,
+        login: true,
       });
     }
   } catch (error) {
@@ -81,4 +99,14 @@ exports.getAllUsers = async (req, res) => {
   } catch (error) {
     res.status(200).send({ message: "Error! while in getAllChat()" });
   }
+};
+
+exports.verifyToken = (req, res, next) => {
+  jwt.verify(req.params.token, credential.SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(200).send(true);
+    } else {
+      return res.status(200).send(false);
+    }
+  });
 };

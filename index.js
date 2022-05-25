@@ -52,76 +52,23 @@ var geoip = require("geoip-country");
 // end database
 
 var ips = [];
-var c = 0;
 var location;
 var ipAd;
-var gName = null;
+
 app.get("/:pass", (req, res) => {
   ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   location = geoip.lookup(ipAd);
-
   console.log(location);
   // let ip = ips.find((item) => item.ip == ipAd);
   // let index = ips.findIndex((x) => x.ip === ip.ip);
   // console.log(index);
-  console.log("Requester IP: ", ipAd);
-  console.log("Location: ", lookup(ipAd));
+  // console.log("Requester IP: ", ipAd);
+  // console.log("Location: ", lookup(ipAd));
 
-  // if (index !== -1 || index === 0) {
-  //   console.log("in");
-  //   ips[index].c += 1;
-  //   if (ips[index].c > 6) {
-  //     console.log("You are blocked for 30 sec");
-  //     setTimeout(() => {
-  //       ips[index].c === 0;
-  //     }, 30000);
-  //   }
-  // } else {
-  //   ips.push({ c: c++, ip: ipAd });
-  // }
-  // ips.push({ c: c++, ip: ipAd });
-  if (
-    location == null ||
-    location.country == "BD" ||
-    location.country == "PK"
-  ) {
-    console.log("Total IP list: ", ips);
-    if (location.country == "PK") {
-      if (gName && gName.toLowerCase() == "hina") {
-        if (req.params.pass == 63952) {
-          res.status(200).send(false);
-        } else {
-          gName = null;
-          res.status(200).send(true);
-        }
-      } else {
-        gName = null;
-        res.status(200).send({
-          error: `Name should be Hina ♥`,
-        });
-      }
-    } else if (location.country == "BD") {
-      console.log("Name: form logic: ", gName);
-      if (gName && gName.toLowerCase() == "albion") {
-        console.log("sdf");
-        if (req.params.pass == 63952) {
-          res.status(200).send(false);
-        } else {
-          gName = null;
-          res.status(200).send(true);
-        }
-      } else {
-        gName = null;
-        res.status(200).send({
-          error: `Name should be Albion 😉`,
-        });
-      }
-    }
+  if (req.params.pass == 63952) {
+    res.status(200).send(false);
   } else {
-    console.log("You can not access this site, from outside of BD or PK");
-    res.status(200).send({
-      error: "You can not access this site, from outside of USA or PK",
-    });
+    res.status(200).send(true);
   }
 });
 
