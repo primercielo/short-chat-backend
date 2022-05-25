@@ -33,10 +33,12 @@ let db = {};
 const Image = require("../model/images.model")(sequelize);
 const Chat = require("../model/allChat.model")(sequelize);
 const Social = require("../model/social.model")(sequelize);
+const User = require("../model/user.mode")(sequelize);
 
 db.Image = Image;
 db.Chat = Chat;
 db.Social = Social;
+db.User = User;
 
 db.sequelize = sequelize;
 
