@@ -1,5 +1,6 @@
 const db = require("../initialize/db.initialize");
 const Social = db.Social;
+const User = db.User;
 
 exports.createPost = async (req, res) => {
   try {
@@ -8,6 +9,7 @@ exports.createPost = async (req, res) => {
       post: req.body.post,
       imgUrl: req.body.imgUrl,
       userId: req.body.userId,
+      UserId: data.userId,
     });
     if (social) {
       res.status(200).send({ message: "Successfully posted" });
@@ -20,6 +22,7 @@ exports.createPost = async (req, res) => {
 exports.getPosts = async (req, res) => {
   try {
     const social = await Social.findAndCountAll({
+      include: [User],
       order: [["createdAt", "DESC"]],
       offset: 0,
       limit: req.params.limit,
