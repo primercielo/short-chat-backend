@@ -35,6 +35,12 @@ const Chat = require("../model/allChat.model")(sequelize);
 const Social = require("../model/social.model")(sequelize);
 const User = require("../model/user.mode")(sequelize);
 
+// relation
+User.hasMany(Social, {
+  foreignKey: "userId",
+});
+Social.belongsTo(User);
+
 db.Image = Image;
 db.Chat = Chat;
 db.Social = Social;

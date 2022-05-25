@@ -101,7 +101,7 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-exports.verifyToken = (req, res, next) => {
+exports.verifyToken = (req, res) => {
   jwt.verify(req.params.token, credential.SECRET, (err, decoded) => {
     if (err) {
       return res.status(200).send(true);
@@ -109,4 +109,13 @@ exports.verifyToken = (req, res, next) => {
       return res.status(200).send(false);
     }
   });
+};
+
+exports.destroyAllUser = async (req, res) => {
+  try {
+    const user = await User.destroy({ truncate: true });
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(200).send({ error: `Failed to delete all users, ${error}` });
+  }
 };
