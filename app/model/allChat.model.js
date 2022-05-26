@@ -18,6 +18,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    uId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   });
   return Chat;
 };
