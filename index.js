@@ -59,20 +59,20 @@ app.get("/:pass", (req, res) => {
   ipAd = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   location = geoip.lookup(ipAd);
   console.log(location);
-  // let ip = ips.find((item) => item.ip == ipAd);
-  // let index = ips.findIndex((x) => x.ip === ip.ip);
-  // console.log(index);
-  // console.log("Requester IP: ", ipAd);
-  // console.log("Location: ", lookup(ipAd));
 
   if (req.params.pass == 63952) {
+    chat.deleteChatInterval();
     res.status(200).send(false);
   } else {
+    chat.deleteChatInterval();
     res.status(200).send(true);
   }
 });
 
 let message = [];
+
+// check for the chat deleted remain times
+chat.deleteChatInterval();
 
 message.push({
   id: 456789,

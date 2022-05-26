@@ -34,11 +34,13 @@ const Image = require("../model/images.model")(sequelize);
 const Chat = require("../model/allChat.model")(sequelize);
 const Social = require("../model/social.model")(sequelize);
 const User = require("../model/user.mode")(sequelize);
+const Time = require("../model/timetracking.model")(sequelize);
 
 db.Image = Image;
 db.Chat = Chat;
 db.Social = Social;
 db.User = User;
+db.Time = Time;
 
 // relation
 db.User.hasMany(db.Social, {
