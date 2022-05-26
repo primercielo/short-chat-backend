@@ -10,6 +10,7 @@ exports.createPost = async (data) => {
       imgUrl: data.imgUrl,
       userId: data.userId,
       UserId: data.userId,
+      uId: data.uId,
     });
     if (social) {
       console.log({ message: "Successfully posted" });

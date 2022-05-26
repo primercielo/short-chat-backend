@@ -166,6 +166,7 @@ io.on("connection", (socket) => {
           msg: msg.url,
           location: location ? location.country : null,
           ip: ipAd,
+          uId: msg.uId,
         };
 
         chat.createChat(data);
@@ -176,6 +177,7 @@ io.on("connection", (socket) => {
           msg: msg.chat,
           location: location ? location.country : null,
           ip: ipAd,
+          uId: msg.uId,
         };
         chat.createChat(data);
         console.log("Chat transcripted: ", data);
