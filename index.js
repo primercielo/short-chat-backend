@@ -143,9 +143,18 @@ io.on("connection", (socket) => {
   });
 
   socket.on("chat message", (msg) => {
-    message.push(msg);
+    if (msg) {
+      message.push(msg);
+      io.emit("chat message", message);
+    } else {
+      message.push({
+        id: 456789,
+        chat: "🔒 Welcome to most secure  chat app in the world 🎉. After, every 10 minutes, all of the chat messages will be erased.",
+        createdAt: Date.now(),
+      });
+      io.emit("chat message", message);
+    }
     // console.log(message, location.country);
-    io.emit("chat message", message);
 
     if (msg) {
       if ("url" in msg) {
