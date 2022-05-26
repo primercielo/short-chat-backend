@@ -62,7 +62,7 @@ exports.signIn = async (req, res) => {
       res.status(200).send({ error: `User not found.` });
     }
     // console.log(user);
-    if (!compare(req.body.password, user.password)) {
+    if (!compare(req.body.password, user.password) && user) {
       res.status(200).send({ error: "Invalid Password" });
     }
 
@@ -75,7 +75,7 @@ exports.signIn = async (req, res) => {
       { expiresIn: "48h" }
     );
 
-    if (compare(req.body.password, user.password)) {
+    if (compare(req.body.password, user.password) && user) {
       res.status(200).send({
         id: user.id,
         name: user.name.toLowerCase(),
