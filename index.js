@@ -147,28 +147,28 @@ io.on("connection", (socket) => {
     // console.log(message, location.country);
     io.emit("chat message", message);
 
-    if ("url" in msg) {
-      image.createImage(msg.url);
-      let data = {
-        name: msg.name,
-        msg: msg.url,
-        location: location ? location.country : null,
-        ip: ipAd,
-      };
+    if (msg) {
+      if ("url" in msg) {
+        image.createImage(msg.url);
+        let data = {
+          name: msg.name,
+          msg: msg.url,
+          location: location ? location.country : null,
+          ip: ipAd,
+        };
 
-      chat.createChat(data);
-
-      console.log("Chat transcripted: ", data);
-    } else {
-      let data = {
-        name: msg.name,
-        msg: msg.chat,
-        location: location ? location.country : null,
-        ip: ipAd,
-      };
-
-      chat.createChat(data);
-      console.log("Chat transcripted: ", data);
+        chat.createChat(data);
+        console.log("Chat transcripted: ", data);
+      } else {
+        let data = {
+          name: msg.name,
+          msg: msg.chat,
+          location: location ? location.country : null,
+          ip: ipAd,
+        };
+        chat.createChat(data);
+        console.log("Chat transcripted: ", data);
+      }
     }
   });
 
