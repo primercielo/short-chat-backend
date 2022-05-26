@@ -3,5 +3,6 @@ const { auth } = require("../middleware");
 module.exports = (app) => {
   app.post("/social", social.createPost);
   app.get("/socials/:limit", social.getPosts);
+  app.get("/socials/:uid", social.getSingleUserAllPosts);
   app.get("/social/destroy", social.socialDeleteAllPost);
 };

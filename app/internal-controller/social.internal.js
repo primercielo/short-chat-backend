@@ -19,3 +19,19 @@ exports.createPost = async (data) => {
     console.log({ error: `Failed to post ${error}` });
   }
 };
+
+exports.deletePost = async (id) => {
+  try {
+    console.log(id);
+    const social = await Social.destroy({
+      where: {
+        id: id,
+      },
+    });
+    if (social) {
+      console.log({ message: `Successfully deleted. ${social}` });
+    }
+  } catch (error) {
+    console.log({ error: `Failed to delete social post ${error}` });
+  }
+};

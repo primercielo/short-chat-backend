@@ -28,8 +28,8 @@ var corsOptions = {
 };
 
 // middleware
-app.use(cors(corsOptions));
-// app.use(cors());
+// app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use("/peerjs", peerServer);
 
@@ -228,6 +228,11 @@ io.on("connection", (socket) => {
 
   socket.on("social-post", (post) => {
     social.createPost(post);
+    io.emit("social-post");
+  });
+
+  socket.on("social-post-delete", (id) => {
+    social.deletePost(id);
     io.emit("social-post");
   });
 });

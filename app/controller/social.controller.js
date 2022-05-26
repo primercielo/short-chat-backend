@@ -43,3 +43,19 @@ exports.socialDeleteAllPost = async (req, res) => {
     res.status(200).send({ error: `Failed to delete, ${error}` });
   }
 };
+
+exports.getSingleUserAllPosts = async (req, res) => {
+  try {
+    const social = await Social.findAndCountAll({
+      where: { uId: req.params.uid },
+      include: [User],
+      order: [["createdAt", "DESC"]],
+      offset: 0,
+      limit: req.params.limit,
+    });
+    res.status(200).send(social);
+  } catch (error) {
+    // res.status(200).send({ error: `Failed to delete, ${error}` });
+    console.log({ error: `Failed to delete, ${error}` });
+  }
+};
