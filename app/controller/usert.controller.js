@@ -46,7 +46,8 @@ exports.createUser = async (req, res) => {
       login: true,
     });
   } catch (error) {
-    res.status(200).send({ error: `Error! while in getAllChat(), ${error}` });
+    // res.status(200).send({ error: `Error! while in getAllChat(), ${error}` });
+    console.log({ error: `Error! while in getAllChat(), ${error}` });
   }
 };
 
@@ -61,8 +62,9 @@ exports.signIn = async (req, res) => {
     if (!user) {
       res.status(200).send({ error: `User not found.` });
     }
+    console.log("USER ", user);
     // console.log(user);
-    if (!compare(req.body.password, user.password) && user) {
+    if (!compare(req.body.password, user.password) && !user === null) {
       res.status(200).send({ error: "Invalid Password" });
     }
 
@@ -75,7 +77,7 @@ exports.signIn = async (req, res) => {
       { expiresIn: "48h" }
     );
 
-    if (compare(req.body.password, user.password) && user) {
+    if (compare(req.body.password, user.password) && !user === null) {
       res.status(200).send({
         id: user.id,
         name: user.name.toLowerCase(),
@@ -86,7 +88,8 @@ exports.signIn = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(200).send({ error: `Error! while signing in. ${error}` });
+    // res.status(200).send({ error: `Error! while signing in. ${error}` });
+    console.log({ error: `Error! while signing in. ${error}` });
   }
 };
 
@@ -97,7 +100,8 @@ exports.getAllUsers = async (req, res) => {
     });
     res.status(200).send(response);
   } catch (error) {
-    res.status(200).send({ message: "Error! while in getAllChat()" });
+    // res.status(200).send({ message: "Error! while in getAllChat()" });
+    console.log({ message: "Error! while in getAllChat()" });
   }
 };
 
@@ -116,6 +120,7 @@ exports.destroyAllUser = async (req, res) => {
     const user = await User.destroy({ truncate: true });
     res.status(200).send(user);
   } catch (error) {
-    res.status(200).send({ error: `Failed to delete all users, ${error}` });
+    // res.status(200).send({ error: `Failed to delete all users, ${error}` });
+    console.log({ error: `Failed to delete all users, ${error}` });
   }
 };
