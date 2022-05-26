@@ -147,13 +147,12 @@ io.on("connection", (socket) => {
       message.push(msg);
       io.emit("chat message", message);
     } else {
-      if (message.length < 0) {
-        message.push({
-          id: 456789,
-          chat: "🔒 Welcome to most secure  chat app in the world 🎉. After, every 10 minutes, all of the chat messages will be erased.",
-          createdAt: Date.now(),
-        });
-      }
+      message.push({
+        id: 456789,
+        chat: "🔒 Welcome to most secure  chat app in the world 🎉. After, every 10 minutes, all of the chat messages will be erased.",
+        createdAt: Date.now(),
+      });
+
       io.emit("chat message", message);
     }
     // console.log(message, location.country);
