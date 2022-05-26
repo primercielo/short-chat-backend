@@ -64,7 +64,7 @@ exports.signIn = async (req, res) => {
     }
     console.log("USER ", user);
     // console.log(user);
-    if (!compare(req.body.password, user.password) && !user === null) {
+    if (!compare(req.body.password, user.password) && user) {
       res.status(200).send({ error: "Invalid Password" });
     }
 
@@ -77,7 +77,7 @@ exports.signIn = async (req, res) => {
       { expiresIn: "48h" }
     );
 
-    if (compare(req.body.password, user.password) && !user === null) {
+    if (compare(req.body.password, user.password) && user) {
       res.status(200).send({
         id: user.id,
         name: user.name.toLowerCase(),
