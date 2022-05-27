@@ -28,8 +28,8 @@ var corsOptions = {
 };
 
 // middleware
-app.use(cors(corsOptions));
-// app.use(cors());
+// app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use("/peerjs", peerServer);
 
@@ -116,12 +116,12 @@ var connectedUsers = [];
 io.on("connection", (socket) => {
   // online-offline status
   console.log("A user connected: ", socket.id);
-  socket.emit("online", socket.id);
+  io.emit("online", socket.id);
   socket.on("update-to-online", (data) => {
     user.isOnline(data).then((response) => {
       connectedUsers.push(response);
       console.log("Get UserDta from update-to-online event", response);
-      socket.emit("online-status", connectedUsers);
+      io.emit("online-status", connectedUsers);
     });
     console.log("Connected Users: ", connectedUsers);
   });
@@ -135,7 +135,7 @@ io.on("connection", (socket) => {
       }
     });
 
-    socket.emit("offline", connectedUsers);
+    io.emit("offline", connectedUsers);
     user.setOffline({ online: false, socketId: socket.id });
   });
   // online-offline status
