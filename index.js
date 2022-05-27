@@ -121,6 +121,7 @@ io.on("connection", (socket) => {
     user.isOnline(data).then((response) => {
       connectedUsers.push(response);
       console.log("Get UserDta from update-to-online event", response);
+      console.log("Current Users: ", connectedUsers);
       io.emit("online-status", connectedUsers);
     });
     console.log("Connected Users: ", connectedUsers);
