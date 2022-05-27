@@ -118,10 +118,11 @@ io.on("connection", (socket) => {
   console.log("A user connected: ", socket.id);
   socket.emit("online", socket.id);
   socket.on("update-to-online", (data) => {
-    const userData = user.isOnline(data);
-    console.log("Get UserDta from update-to-online event", userData);
-    connectedUsers.push(userData);
-    socket.emit("online-status", connectedUsers);
+    user.isOnline(data).then((response) => {
+      connectedUsers.push(response);
+      console.log("Get UserDta from update-to-online event", response);
+      socket.emit("online-status", connectedUsers);
+    });
     console.log("Connected Users: ", connectedUsers);
   });
 
