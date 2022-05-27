@@ -11,6 +11,8 @@ exports.isOnline = async ({ online, socketId, id }) => {
     { where: { id: id } }
   );
   console.log(user);
+  const userData = await User.findOne({ where: { id: id } });
+  console.log("User Data: ", userData);
   if (!user) {
     console.log({
       error: `Error on updating online status, (internal controller) isOnline()`,
@@ -18,7 +20,7 @@ exports.isOnline = async ({ online, socketId, id }) => {
   }
   if (user) {
     console.log({ message: `Successfully updated user online status ${user}` });
-    return user;
+    return userData;
   }
 };
 
@@ -31,6 +33,9 @@ exports.setOffline = async ({ online, socketId }) => {
     },
     { where: { socketId: socketId } }
   );
+  console.log("Set Offline: (user)", user);
+  const userData = await User.findOne({ where: { socketId: socketId } }); //no need just to test
+  console.log("Set Offline: (userData)", userData);
   if (!user) {
     console.log({
       error: `Error on updating offline status, (internal controller) setOffline()`,
