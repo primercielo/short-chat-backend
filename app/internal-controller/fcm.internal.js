@@ -36,4 +36,9 @@ exports.pushNotification = async (data) => {
   });
   console.log(filteredDuplicateToken(fcm.rows));
   console.log(fcm);
+  some(filteredDuplicateToken(fcm.rows));
 };
+
+function some(token) {
+  console.log("Token from some: ", token);
+}

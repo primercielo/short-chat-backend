@@ -6,7 +6,7 @@ module.exports = (socket, io) => {
     fcm.createFcm(data);
   });
 
-  socket.on("push-notification", (msg) => {
+  socket.on("chat message", (msg) => {
     fcm.pushNotification(msg);
   });
 };
