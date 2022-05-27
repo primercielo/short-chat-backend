@@ -120,8 +120,10 @@ io.on("connection", (socket) => {
   socket.on("update-to-online", (data) => {
     user.isOnline(data).then((response) => {
       connectedUsers.push(response);
+
       console.log("Get UserDta from update-to-online event", response);
-      console.log("Current Users: ", connectedUsers);
+      console.log("\n\nCurrent Users:\n\n ", connectedUsers, "\n\n");
+      console.log("\n\nData: \n\n", data, "\n\n");
       io.emit("online-status", connectedUsers);
     });
     console.log("Connected Users: ", connectedUsers);
