@@ -120,11 +120,16 @@ io.on("connection", (socket) => {
   socket.on("update-to-online", (data) => {
     user.isOnline(data).then((response) => {
       connectedUsers.push(response);
+      // console.log("Get UserDta from update-to-online event", response);
+      // console.log("\n\nCurrent Users:\n\n ", connectedUsers, "\n\n");
+      // console.log("\n\nData: \n\n", data, "\n\n");
 
-      console.log("Get UserDta from update-to-online event", response);
-      console.log("\n\nCurrent Users:\n\n ", connectedUsers, "\n\n");
-      console.log("\n\nData: \n\n", data, "\n\n");
-      io.emit("online-status", response);
+      const ids = connectedUsers.map((o) => o.id);
+      const filtered = connectedUsers.filter(
+        ({ id }, index) => !ids.includes(id, index + 1)
+      );
+      console.log("\n\nFiltered Users: ", filtered, "\n\n");
+      io.emit("online-status", filtered);
     });
     console.log("Connected Users: ", connectedUsers);
   });
