@@ -32,7 +32,7 @@ exports.createUser = async (req, res) => {
         name: user.name,
       },
       credential.SECRET,
-      { expiresIn: "48h" }
+      { expiresIn: "60d" }
     );
 
     console.log({ message: `User successfully created ${user}` });
@@ -74,7 +74,7 @@ exports.signIn = async (req, res) => {
         name: user.name,
       },
       credential.SECRET,
-      { expiresIn: "48h" }
+      { expiresIn: "60d" }
     );
 
     if (compare(req.body.password, user.password) && user) {
