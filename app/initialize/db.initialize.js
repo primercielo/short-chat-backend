@@ -35,18 +35,25 @@ const Chat = require("../model/allChat.model")(sequelize);
 const Social = require("../model/social.model")(sequelize);
 const User = require("../model/user.mode")(sequelize);
 const Time = require("../model/timetracking.model")(sequelize);
+const Fcm = require("../model/fcmTokens")(sequelize);
 
 db.Image = Image;
 db.Chat = Chat;
 db.Social = Social;
 db.User = User;
 db.Time = Time;
+db.Fcm = Fcm;
 
 // relation
+
+// rln btn user and social post
 db.User.hasMany(db.Social, {
   foreignKey: "userId",
 });
 db.Social.belongsTo(db.User);
+// rln btn user and fcm token
+db.User.hasMany(db.Fcm);
+db.Fcm.belongsTo(db.User);
 
 db.sequelize = sequelize;
 

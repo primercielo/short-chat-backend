@@ -28,8 +28,8 @@ var corsOptions = {
 };
 
 // middleware
-app.use(cors(corsOptions));
-// app.use(cors());
+// app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use("/peerjs", peerServer);
 
@@ -284,6 +284,8 @@ io.on("connection", (socket) => {
   socket.on("get-all-users", () => {
     user.getAllUsers(io);
   });
+
+  require("./app/events/db.internal")(socket, io);
 });
 
 http.listen(port, () => {
