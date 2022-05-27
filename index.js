@@ -47,6 +47,7 @@ require("./app/routes/auth.protected")(app);
 const image = require("./app/internal-controller/images.internal");
 const chat = require("./app/internal-controller/allChat.internal");
 const social = require("./app/internal-controller/social.internal");
+const user = require("./app/internal-controller/user.internal");
 const { lookup } = require("geoip-lite");
 var geoip = require("geoip-country");
 // end database
@@ -110,7 +111,31 @@ setInterval(() => {
 let i = 0;
 let connectCounter = 0;
 
+var connectedUsers = [];
+
 io.on("connection", (socket) => {
+  // online-offline status
+  socket.emit("online", socket.id);
+  socket.on("update-to-online", (data) => {
+    connectedUsers.push(user.isOnline(data, socket));
+    socket.emit("online-status", connectedUsers);
+    console.log("Connected Users: ", connectedUsers);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected", socket.id);
+
+    connectedUsers.forEach((item, index) => {
+      if (item.socketId === socket.id) {
+        return (connectedUsers[index].online = false);
+      }
+    });
+
+    socket.emit("offline", connectedUsers);
+    user.setOffline({ online: false, socketId: socket.id });
+  });
+  // online-offline status
+
   socket.on("get-name", (name) => {
     gName = name;
     console.log("Entered name: ", gName);

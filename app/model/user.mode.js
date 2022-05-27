@@ -23,6 +23,14 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       allowNull: true,
     },
+    online: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
+    socketId: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   });
   return User;
 };
