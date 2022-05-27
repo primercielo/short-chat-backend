@@ -115,15 +115,16 @@ var connectedUsers = [];
 
 io.on("connection", (socket) => {
   // online-offline status
+  console.log("A user connected: ", socket.id);
   socket.emit("online", socket.id);
   socket.on("update-to-online", (data) => {
-    connectedUsers.push(user.isOnline(data, socket));
+    connectedUsers.push(user.isOnline(data));
     socket.emit("online-status", connectedUsers);
     console.log("Connected Users: ", connectedUsers);
   });
 
   socket.on("disconnect", () => {
-    console.log("User disconnected", socket.id);
+    console.log("An user disconnected: ", socket.id);
 
     connectedUsers.forEach((item, index) => {
       if (item.socketId === socket.id) {
