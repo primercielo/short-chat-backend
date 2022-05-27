@@ -138,10 +138,8 @@ io.on("connection", (socket) => {
       );
       // filter end
 
-      console.log("\n\nFiltered Users: ", filtered, "\n\n");
       io.emit("online-status", filtered);
     });
-    console.log("Connected Users: ", connectedUsers);
   });
 
   socket.on("disconnect", () => {
