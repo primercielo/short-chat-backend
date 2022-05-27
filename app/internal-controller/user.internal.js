@@ -20,8 +20,8 @@ exports.isOnline = async ({ online, socketId, id }) => {
   }
   if (user) {
     console.log({ message: `Successfully updated user online status ${user}` });
-    return userData;
   }
+  return userData;
 };
 
 exports.setOffline = async ({ online, socketId }) => {
