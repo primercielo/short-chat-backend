@@ -10,6 +10,7 @@ exports.isOnline = async ({ online, socketId, id }) => {
     },
     { where: { id: id } }
   );
+  console.log(user);
   if (!user) {
     console.log({
       error: `Error on updating online status, (internal controller) isOnline()`,
