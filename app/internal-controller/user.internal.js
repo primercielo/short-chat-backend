@@ -48,7 +48,7 @@ exports.setOffline = async ({ online, socketId }) => {
 
 exports.getAllUsers = async (io) => {
   const user = await User.findAndCountAll({
-    order: [["createdAt", "DESC"]],
+    order: [["updatedAt", "DESC"]],
   });
 
   io.emit("get-all-users", user);
