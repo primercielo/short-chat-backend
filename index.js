@@ -280,6 +280,10 @@ io.on("connection", (socket) => {
     social.deletePost(id);
     io.emit("social-post");
   });
+
+  socket.on("get-all-users", () => {
+    user.getAllUsers(io);
+  });
 });
 
 http.listen(port, () => {
