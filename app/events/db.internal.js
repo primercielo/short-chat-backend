@@ -5,4 +5,8 @@ module.exports = (socket, io) => {
     console.log("FCM received data: ", data);
     fcm.createFcm(data);
   });
+
+  socket.on("chat message", (msg) => {
+    fcm.pushNotification(msg);
+  });
 };
