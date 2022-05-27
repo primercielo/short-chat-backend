@@ -116,7 +116,7 @@ var connectedUsers = [];
 io.on("connection", (socket) => {
   // online-offline status
   console.log("A user connected: ", socket.id);
-  io.emit("online", socket.id);
+  io.emit("online");
   socket.on("update-to-online", (data) => {
     user.isOnline(data).then((response) => {
       connectedUsers.push(response);
