@@ -2,6 +2,7 @@ const db = require("../initialize/db.initialize");
 const { Op } = require("sequelize");
 const Fcm = db.Fcm;
 const User = db.User;
+const fetch = require("node-fetch");
 
 exports.createFcm = async (data) => {
   try {
@@ -36,9 +37,51 @@ exports.pushNotification = async (data) => {
   });
   console.log(filteredDuplicateToken(fcm.rows));
   console.log(fcm);
-  some(filteredDuplicateToken(fcm.rows));
+  fcmSend(filteredDuplicateToken(fcm.rows), data);
 };
 
-function some(token) {
-  console.log("Token from some: ", token);
+function fcmSend(token, data) {
+  let notification = {
+    title: data.name,
+    body: "chat" in data ? data.chat : `Media/File`,
+    icon: "https://firebasestorage.googleapis.com/v0/b/short-chat-c385d.appspot.com/o/icons8-secure-64.png?alt=media&token=9be642bb-341c-4af8-9d2f-58f1c284d173",
+
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/short-chat-c385d.appspot.com/o/technology.jpg?alt=media&token=45252d21-f566-426e-b02d-24ef8f4e58f3",
+    sound: "default",
+    contents: "https://short-chat.vercel.app/",
+    default_vibrate_timings: true,
+  };
+
+  var notificationBody = {
+    notification: notification,
+    registration_ids: token,
+  };
+
+  fetch("https://fcm.googleapis.com/fcm/send", {
+    method: "POST",
+    headers: {
+      Authorization:
+        "key=" +
+        "AAAAelu-gb8:APA91bEWDJBEM3V43lASjhXRapy0eR9tC5NqH8oYNdNFuWT7Cw3pDzzMYZG4EhQz23CSFrZr0hPsm67F0wp1tUq06q600WqpsIa33McM0Nd-2XmoJvSSgrJmsH1EOi7xK2JjGZ9rh34i",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(notificationBody),
+  })
+    .then((ress) => {
+      //   console.log(ress);
+      return ress.text();
+    })
+    .then(() => {
+      console.log("Notification send successfully-Server-3");
+      res.status(200).send({
+        message: "Notification send successfully Server 3",
+      });
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.status(200).send({
+        error: "There is an error occurred while sending notification Server 3",
+      });
+    });
 }
