@@ -74,13 +74,14 @@ function fcmSend(token, data) {
     })
     .then(() => {
       console.log("Notification send successfully-Server-3");
-      res.status(200).send({
+
+      console.log({
         message: "Notification send successfully Server 3",
       });
     })
     .catch((err) => {
       console.log(err.message);
-      res.status(200).send({
+      console.log({
         error: "There is an error occurred while sending notification Server 3",
       });
     });
