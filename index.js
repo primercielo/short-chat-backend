@@ -113,6 +113,14 @@ let connectCounter = 0;
 
 var connectedUsers = [];
 
+function filterDuplicateUsers(array) {
+  const ids = array.map((o) => o.id);
+  const filtered = array.filter(
+    ({ id }, index) => !ids.includes(id, index + 1)
+  );
+  return filtered;
+}
+
 io.on("connection", (socket) => {
   // online-offline status
   console.log("A user connected: ", socket.id);
@@ -120,14 +128,16 @@ io.on("connection", (socket) => {
   socket.on("update-to-online", (data) => {
     user.isOnline(data).then((response) => {
       connectedUsers.push(response);
-      // console.log("Get UserDta from update-to-online event", response);
-      // console.log("\n\nCurrent Users:\n\n ", connectedUsers, "\n\n");
-      // console.log("\n\nData: \n\n", data, "\n\n");
 
+      // unhandled iterating occured so many times
+      // thats why needed to filter out all of the
+      // duplicated responses from connectedUsers[]
       const ids = connectedUsers.map((o) => o.id);
       const filtered = connectedUsers.filter(
         ({ id }, index) => !ids.includes(id, index + 1)
       );
+      // filter end
+
       console.log("\n\nFiltered Users: ", filtered, "\n\n");
       io.emit("online-status", filtered);
     });
@@ -139,11 +149,11 @@ io.on("connection", (socket) => {
 
     connectedUsers.forEach((item, index) => {
       if (item.socketId === socket.id) {
-        connectedUsers.splice(index, 1);
+        connectedUsers[index].online = false;
       }
     });
 
-    io.emit("offline", connectedUsers);
+    io.emit("offline", filterDuplicateUsers(connectedUsers));
     user.setOffline({ online: false, socketId: socket.id });
   });
   // online-offline status
