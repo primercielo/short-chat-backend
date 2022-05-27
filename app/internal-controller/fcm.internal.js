@@ -1,4 +1,5 @@
 const db = require("../initialize/db.initialize");
+const { Op } = require("sequelize");
 const Fcm = db.Fcm;
 const User = db.User;
 
