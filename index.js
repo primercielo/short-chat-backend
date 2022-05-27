@@ -131,7 +131,7 @@ io.on("connection", (socket) => {
 
     connectedUsers.forEach((item, index) => {
       if (item.socketId === socket.id) {
-        return (connectedUsers[index].online = false);
+        connectedUsers.splice(index, 1);
       }
     });
 
