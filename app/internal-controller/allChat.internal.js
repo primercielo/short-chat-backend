@@ -33,7 +33,7 @@ exports.deleteChatInterval = async () => {
     "Day remain to delete all the chat for the last 30 days: ",
     currentDate - dateCreated
   );
-  if (currentDate - dateCreated === 30) {
+  if (currentDate - dateCreated >= 30) {
     const time = await Time.update(
       { setTime: currentTimes },
       { where: { id: 1 } }

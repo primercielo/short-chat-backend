@@ -4,19 +4,6 @@ const Fcm = db.Fcm;
 const User = db.User;
 const fetch = require("node-fetch");
 
-exports.createFcm = async (data) => {
-  try {
-    const fcm = await Fcm.create({
-      uId: data.id,
-      token: data.token,
-      UserId: data.id,
-    });
-    console.log("FCM saved: ", fcm);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 function filteredDuplicateToken(array) {
   const ids = array.map((o) => o.token);
   const filtered = array.filter(
@@ -29,14 +16,42 @@ function filteredDuplicateToken(array) {
   return tokens;
 }
 
+function checkExist(array, id, token) {
+  const data = array.map(
+    (item) => item["UserId"] === id && item["token"] === token
+  );
+  return data.includes(true, 0);
+}
+
+exports.createFcm = async (data) => {
+  try {
+    const getAllFcm = await Fcm.findAndCountAll({
+      order: [["createdAt", "DESC"]],
+      include: [User],
+    });
+
+    if (!checkExist(getAllFcm.rows, data.id, data.token)) {
+      const fcm = await Fcm.create({
+        uId: data.id,
+        token: data.token,
+        UserId: data.id,
+      });
+    } else {
+      console.log(
+        `\n****\n Token already exists for the user  ${data.id}. Did not create duplicate for id: ${data.id}`
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 exports.pushNotification = async (data) => {
   const fcm = await Fcm.findAndCountAll({
     where: { UserId: { [Op.ne]: data.id } },
     order: [["createdAt", "DESC"]],
     include: [User],
   });
-  console.log(filteredDuplicateToken(fcm.rows));
-  console.log(fcm);
   fcmSend(filteredDuplicateToken(fcm.rows), data);
 };
 
@@ -69,7 +84,6 @@ function fcmSend(token, data) {
     body: JSON.stringify(notificationBody),
   })
     .then((ress) => {
-      //   console.log(ress);
       return ress.text();
     })
     .then(() => {
