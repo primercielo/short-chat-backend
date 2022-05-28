@@ -60,7 +60,7 @@ function fcmSend(token, data) {
     title: data.name.toUpperCase(),
     body: `${
       "chat" in data ? data.chat.substring(0, 10) : "Media/File"
-    } - from SC`,
+    }... - from SC`,
     icon: "https://firebasestorage.googleapis.com/v0/b/short-chat-c385d.appspot.com/o/icons8-secure-64.png?alt=media&token=9be642bb-341c-4af8-9d2f-58f1c284d173",
 
     // image:
