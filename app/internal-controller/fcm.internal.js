@@ -57,12 +57,14 @@ exports.pushNotification = async (data) => {
 
 function fcmSend(token, data) {
   let notification = {
-    title: data.name,
-    body: "chat" in data ? data.chat : `Media/File`,
+    title: data.name.toUpperCase(),
+    body: `${
+      "chat" in data ? data.chat.substring(0, 10) : "Media/File"
+    } - from SC`,
     icon: "https://firebasestorage.googleapis.com/v0/b/short-chat-c385d.appspot.com/o/icons8-secure-64.png?alt=media&token=9be642bb-341c-4af8-9d2f-58f1c284d173",
 
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/short-chat-c385d.appspot.com/o/technology.jpg?alt=media&token=45252d21-f566-426e-b02d-24ef8f4e58f3",
+    // image:
+    //   "https://firebasestorage.googleapis.com/v0/b/short-chat-c385d.appspot.com/o/technology.jpg?alt=media&token=45252d21-f566-426e-b02d-24ef8f4e58f3",
     sound: "default",
     contents: "https://short-chat.vercel.app/",
     default_vibrate_timings: true,
@@ -87,16 +89,13 @@ function fcmSend(token, data) {
       return ress.text();
     })
     .then(() => {
-      console.log("Notification send successfully-Server-3");
-
       console.log({
-        message: "Notification send successfully Server 3",
+        message: "Notification send successfully",
       });
     })
     .catch((err) => {
-      console.log(err.message);
       console.log({
-        error: "There is an error occurred while sending notification Server 3",
+        error: `There is an error occurred while sending notification ${err.message}`,
       });
     });
 }

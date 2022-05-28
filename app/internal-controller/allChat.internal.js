@@ -20,11 +20,6 @@ exports.createChat = async ({ name, msg, location, ip, uId }) => {
 exports.deleteChatInterval = async () => {
   const currentTimes = new Date();
 
-  // const createTime = await Time.update(
-  //   { setTime: currentTimes },
-  //   { where: { id: 1 } }
-  // );
-
   const time = await Time.findOne({ where: { id: 1 } });
   const dateCreated = new Date(time.updatedAt).getDate();
   const currentDate = new Date().getDate();
