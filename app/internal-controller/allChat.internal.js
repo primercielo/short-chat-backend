@@ -12,7 +12,6 @@ exports.createChat = async ({ name, msg, location, ip, uId }) => {
       ip: ip,
       uId: uId,
     });
-    console.log("Chat URL created: ", response);
   } catch (error) {
     console.log({ message: `Error! while in createChat() ${error}` });
   }
