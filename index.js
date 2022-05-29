@@ -190,7 +190,6 @@ io.on("connection", (socket) => {
   socket.on("chat message", (msg) => {
     if (msg) {
       message.push(msg);
-      console.log("msg block is executing");
       io.emit("chat message", message);
     } else {
       message.push({
@@ -198,10 +197,8 @@ io.on("connection", (socket) => {
         chat: "🔒 Welcome to most secure  chat app in the world 🎉. After, every 10 minutes, all of the chat messages will be erased.",
         createdAt: Date.now(),
       });
-      console.log("msg block is not executing");
       io.emit("chat message", message);
     }
-    // console.log(message, location.country);
 
     if (msg) {
       if ("url" in msg) {
@@ -215,7 +212,6 @@ io.on("connection", (socket) => {
         };
 
         chat.createChat(data);
-        console.log("Chat transcripted: ", data);
       } else {
         let data = {
           name: msg.name,
@@ -225,7 +221,6 @@ io.on("connection", (socket) => {
           uId: msg.uId,
         };
         chat.createChat(data);
-        console.log("Chat transcripted: ", data);
       }
     }
   });
