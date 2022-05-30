@@ -24,14 +24,14 @@ module.exports = (socket, io) => {
 
   socket.on("heart", (id) => {
     social.incrementHeart(id);
-    io.emit("heart-reacted");
+    io.emit("social-post");
   });
   socket.on("happy", (id) => {
     social.incrementHappy(id);
-    io.emit("happy-reacted");
+    io.emit("social-post");
   });
   socket.on("sad", (id) => {
     social.incrementSad(id);
-    io.emit("sad-reacted");
+    io.emit("social-post");
   });
 };
