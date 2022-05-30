@@ -58,7 +58,7 @@ exports.incrementHeart = async (id) => {
 exports.incrementHappy = async (id) => {
   try {
     console.log(id);
-    const social = await db.sequelize.query(`UPDATE Social
+    const social = await db.sequelize.query(`UPDATE "Social"
     SET happy = happy + 1
     WHERE id = ${id}`);
     if (social) {
