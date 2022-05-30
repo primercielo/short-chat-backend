@@ -44,6 +44,7 @@ require("./app/routes/images.protected")(app);
 require("./app/routes/allChat.protected")(app);
 require("./app/routes/social.protected")(app);
 require("./app/routes/auth.protected")(app);
+require("./app/routes/admin.protected")(app);
 const image = require("./app/internal-controller/images.internal");
 const chat = require("./app/internal-controller/allChat.internal");
 const social = require("./app/internal-controller/social.internal");
