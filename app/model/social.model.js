@@ -18,6 +18,18 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    heart: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    happy: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    sad: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   });
   return Social;
 };
