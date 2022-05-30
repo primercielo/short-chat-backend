@@ -30,6 +30,10 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    sensitive: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
   });
   return Social;
 };

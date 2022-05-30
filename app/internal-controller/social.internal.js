@@ -11,6 +11,7 @@ exports.createPost = async (data) => {
       userId: data.userId,
       UserId: data.userId,
       uId: data.uId,
+      sensitive: data.sensitive,
       heart: 0,
       happy: 0,
       sad: 0,
