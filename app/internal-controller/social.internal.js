@@ -42,7 +42,7 @@ exports.deletePost = async (id) => {
 exports.incrementHeart = async (id) => {
   try {
     console.log(id);
-    const social = await db.sequelize.query(`UPDATE public."Social"
+    const social = await db.sequelize.query(`UPDATE "Socials"
     SET heart = heart + 1
     WHERE id = ${id}`);
     if (social) {
@@ -58,7 +58,7 @@ exports.incrementHeart = async (id) => {
 exports.incrementHappy = async (id) => {
   try {
     console.log(id);
-    const social = await db.sequelize.query(`UPDATE public."Social"
+    const social = await db.sequelize.query(`UPDATE "Social"
     SET happy = happy + 1
     WHERE id = ${id}`);
     if (social) {
@@ -74,9 +74,10 @@ exports.incrementHappy = async (id) => {
 exports.incrementSad = async (id) => {
   try {
     console.log(id);
-    const social = await db.sequelize.query(`UPDATE public."Social"
+    const social = await db.sequelize.query(`UPDATE "Social"
     SET sad = sad + 1
     WHERE id = ${id}`);
+
     if (social) {
       console.log({
         message: `Successfully incremented sad reaction. ${social}`,
