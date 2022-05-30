@@ -24,8 +24,8 @@ exports.deleteChatInterval = async () => {
   const dateCreated = new Date(time.updatedAt).getDate();
   const currentDate = new Date().getDate();
   console.log(
-    "Day remain to delete all the chat for the last 30 days: ",
-    currentDate - dateCreated
+    "Day remain to delete all the chat for the last 10 days: ",
+    10 - (currentDate - dateCreated)
   );
   if (currentDate - dateCreated >= 10) {
     const time = await Time.update(
@@ -33,6 +33,6 @@ exports.deleteChatInterval = async () => {
       { where: { id: 1 } }
     );
     const chat = await Chat.destroy({ truncate: true });
-    console.log("All Chat deleted for the past 30 days.");
+    console.log("All Chat deleted for the past 10 days.");
   }
 };
