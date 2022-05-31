@@ -4,4 +4,9 @@ module.exports = (app) => {
   app.get("/chat/:limit", auth.verifyCode, chat.getAllChat);
   app.get("/chat/delete/:id", auth.verifyCode, chat.deleteOneChat);
   app.get("/chat/:fromid/:toid", auth.verifyCode, chat.deleteRangeChat);
+  app.get(
+    "/chat/date/:fromid/:toid",
+    auth.verifyCode,
+    chat.deleteRangeDateChat
+  );
 };

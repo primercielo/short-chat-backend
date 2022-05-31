@@ -1,5 +1,6 @@
 const db = require("../initialize/db.initialize");
 const Chat = db.Chat;
+const Admin = db.Admin;
 const { Op } = require("sequelize");
 
 exports.getAllChat = async (req, res) => {
@@ -51,5 +52,26 @@ exports.deleteRangeChat = async (req, res) => {
     res
       .status(200)
       .send({ error: `Error! while in deleteRangeChat() ${error}` });
+  }
+};
+
+exports.deleteRangeDateChat = async (req, res) => {
+  console.log(req.params);
+  try {
+    const chat = await Chat.destroy({
+      where: {
+        createdAt: {
+          [Op.gte]: new Date(req.params.fromid),
+          [Op.lte]: new Date(req.params.toid),
+        },
+      },
+    });
+    res.status(200).send({
+      message: `Successfully deleted chat between: ${req.params.fromid} and  ${req.params.toid} data.`,
+    });
+  } catch (error) {
+    res
+      .status(200)
+      .send({ error: `Error! while in deleteRangeDateChat() ${error}` });
   }
 };

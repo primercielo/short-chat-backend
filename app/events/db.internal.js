@@ -1,6 +1,7 @@
 const fcm = require("../../app/internal-controller/fcm.internal");
 const admin = require("../../app/internal-controller/admin.internal");
 const social = require("../../app/internal-controller/social.internal");
+const chat = require("../../app/internal-controller/allChat.internal");
 
 module.exports = (socket, io) => {
   socket.on("save-fcm-token", (data) => {
@@ -26,12 +27,23 @@ module.exports = (socket, io) => {
     social.incrementHeart(id);
     io.emit("social-post");
   });
+
   socket.on("happy", (id) => {
     social.incrementHappy(id);
     io.emit("social-post");
   });
+
   socket.on("sad", (id) => {
     social.incrementSad(id);
     io.emit("social-post");
+  });
+
+  socket.on("delete-chat-between-date", (data) => {
+    chat.deleteRangeDateChat(data);
+    io.emit("deleted-chat-between-date");
+  });
+
+  socket.on("get-first-chat", () => {
+    chat.getFirstChat(io);
   });
 };

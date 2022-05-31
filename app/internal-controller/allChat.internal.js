@@ -36,3 +36,34 @@ exports.deleteChatInterval = async () => {
     console.log("All Chat deleted for the past 10 days.");
   }
 };
+
+exports.getFirstChat = async (io) => {
+  try {
+    const chat = await Chat.findAndCountAll({
+      order: [["createdAt", "DESC"]],
+      offset: 0,
+      limit: 1,
+    });
+    io.emit("send-first-chat", chat);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.deleteRangeDateChat = async (data) => {
+  try {
+    const chat = await Chat.destroy({
+      where: {
+        createdAt: {
+          [Op.gte]: new Date(data.fromid),
+          [Op.lte]: new Date(data.toid),
+        },
+      },
+    });
+    console.log({
+      message: `Successfully deleted chat between: ${req.params.fromid} and  ${req.params.toid} data.`,
+    });
+  } catch (error) {
+    console.log({ error: `Error! while in deleteRangeDateChat() ${error}` });
+  }
+};
