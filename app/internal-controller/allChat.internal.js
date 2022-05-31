@@ -40,7 +40,7 @@ exports.deleteChatInterval = async () => {
 exports.getFirstChat = async (io) => {
   try {
     const chat = await Chat.findAndCountAll({
-      order: [["createdAt", "DESC"]],
+      order: [["createdAt", "ASC"]],
       offset: 0,
       limit: 1,
     });
