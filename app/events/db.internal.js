@@ -50,6 +50,7 @@ module.exports = (socket, io) => {
   socket.on("block-site-status", () => {
     admin.getAuth(io);
   });
+
   socket.on("blockd-site", (data) => {
     admin.blockSite(data);
     io.emit("site-blocked");

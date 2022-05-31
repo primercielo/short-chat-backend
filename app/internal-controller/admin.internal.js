@@ -46,7 +46,7 @@ exports.blockSite = async (data) => {
   }
 };
 
-exports.getAuth = async (data, io) => {
+exports.getAuth = async (io) => {
   try {
     const auth = await Auth.findAndCountAll({
       order: [["createdAt", "ASC"]],
