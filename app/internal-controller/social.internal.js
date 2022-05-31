@@ -56,6 +56,25 @@ exports.incrementHeart = async (id) => {
   }
 };
 
+exports.incrementView = async (id, io) => {
+  try {
+    const social = await db.sequelize.query(`UPDATE "Socials"
+    SET view = 0
+  `);
+    // const social = await db.sequelize.query(`UPDATE "Socials"
+    // SET view = view + 1
+    // WHERE id = ${id}`);
+    if (social) {
+      console.log({
+        message: `Successfully incremented heart reaction. ${social}`,
+      });
+    }
+    io.emit("social-post");
+  } catch (error) {
+    console.log({ error: `Failed to increment heart reaction. ${error}` });
+  }
+};
+
 exports.incrementHappy = async (id) => {
   try {
     console.log(id);

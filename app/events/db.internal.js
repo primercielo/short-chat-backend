@@ -54,4 +54,8 @@ module.exports = (socket, io) => {
     admin.blockSite(data, io);
     io.emit("site-blocked");
   });
+
+  socket.on("view-incremented", (id) => {
+    social.incrementView(id, io);
+  });
 };
