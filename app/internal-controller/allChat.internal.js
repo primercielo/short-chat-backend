@@ -69,7 +69,7 @@ exports.deleteRangeDateChat = async (data) => {
       },
     });
     console.log({
-      message: `Successfully deleted chat between: ${data.from} and  ${req.data.to} data.`,
+      message: `Successfully deleted chat between: ${data.from} and  ${data.to} data.`,
     });
   } catch (error) {
     console.log({ error: `Error! while in deleteRangeDateChat() ${error}` });
