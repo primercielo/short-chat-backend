@@ -15,6 +15,7 @@ exports.createPost = async (data) => {
       heart: 0,
       happy: 0,
       sad: 0,
+      view: 0,
     });
     if (social) {
       console.log({ message: "Successfully posted" });
@@ -63,12 +64,12 @@ exports.incrementView = async (id, io) => {
     WHERE id = ${id}`);
     if (social) {
       console.log({
-        message: `Successfully incremented heart reaction. ${social}`,
+        message: `Successfully incremented view of video. ${social}`,
       });
     }
     io.emit("social-post");
   } catch (error) {
-    console.log({ error: `Failed to increment heart reaction. ${error}` });
+    console.log({ error: `Failed to increment view video. ${error}` });
   }
 };
 
