@@ -1,5 +1,6 @@
 const db = require("../initialize/db.initialize");
 const Admin = db.Admin;
+const Auth = db.Auth;
 
 exports.createPost = async (data) => {
   try {
@@ -33,5 +34,29 @@ exports.deletePost = async (id) => {
     }
   } catch (error) {
     console.log({ error: `Failed to delete admin post ${error}` });
+  }
+};
+
+exports.blockSite = async (data) => {
+  try {
+    const auth = await Auth.update({ block: data.block }, { where: { id: 1 } });
+    console.log("SUccessfully blocked the site");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.getAuth = async (data, io) => {
+  try {
+    const auth = await Auth.findAndCountAll({
+      order: [["createdAt", "ASC"]],
+      offset: 0,
+      limit: 1,
+    });
+
+    console.log("SUccessfully blocked the site");
+    io.emit("block-status", auth);
+  } catch (error) {
+    console.log(error);
   }
 };
