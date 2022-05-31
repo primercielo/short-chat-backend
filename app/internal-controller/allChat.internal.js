@@ -58,6 +58,7 @@ exports.getFirstChat = async (io) => {
 
 exports.deleteRangeDateChat = async (data) => {
   try {
+    console.log(data);
     const chat = await Chat.destroy({
       where: {
         createdAt: {
