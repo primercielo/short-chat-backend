@@ -39,8 +39,7 @@ exports.deletePost = async (id) => {
 
 exports.blockSite = async (data) => {
   try {
-    // const auth = await Auth.update({ block: data }, { where: { id: 1 } });
-    const auth = await Auth.create({ block: false });
+    const auth = await Auth.update({ block: data }, { where: { id: 1 } });
     console.log("SUccessfully blocked the site");
   } catch (error) {
     console.log(error);
