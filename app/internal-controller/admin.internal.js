@@ -37,10 +37,11 @@ exports.deletePost = async (id) => {
   }
 };
 
-exports.blockSite = async (data) => {
+exports.blockSite = async (data, io) => {
   try {
     const auth = await Auth.update({ block: data }, { where: { id: 1 } });
     console.log("SUccessfully blocked the site");
+    io.emit("block-status", auth);
   } catch (error) {
     console.log(error);
   }

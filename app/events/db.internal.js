@@ -52,7 +52,7 @@ module.exports = (socket, io) => {
   });
 
   socket.on("blockd-site", (data) => {
-    admin.blockSite(data);
+    admin.blockSite(data, io);
     io.emit("site-blocked");
   });
 };
