@@ -63,8 +63,8 @@ exports.deleteRangeDateChat = async (data) => {
     const chat = await Chat.destroy({
       where: {
         createdAt: {
-          [Op.gte]: data.fromid,
-          [Op.lte]: data.toid,
+          [Op.gte]: new Date(data.from),
+          [Op.lte]: new Date(data.to),
         },
       },
     });
