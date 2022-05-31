@@ -39,8 +39,7 @@ module.exports = (socket, io) => {
   });
 
   socket.on("delete-chat-between-date", (data) => {
-    chat.deleteRangeDateChat(data);
-    io.emit("deleted-chat-between-date");
+    chat.deleteRangeDateChat(data, io);
   });
 
   socket.on("get-first-chat", () => {

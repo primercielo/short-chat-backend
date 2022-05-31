@@ -56,7 +56,7 @@ exports.getFirstChat = async (io) => {
   }
 };
 
-exports.deleteRangeDateChat = async (data) => {
+exports.deleteRangeDateChat = async (data, io) => {
   try {
     console.log("FROM ", new Date(data.from), "TO: ", new Date(data.to));
 
@@ -68,6 +68,7 @@ exports.deleteRangeDateChat = async (data) => {
         },
       },
     });
+    io.emit("deleted-chat-between-date");
     console.log({
       message: `Successfully deleted chat between: ${data.from} and  ${data.to} data.`,
     });
