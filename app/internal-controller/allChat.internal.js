@@ -2,6 +2,7 @@
 const db = require("../initialize/db.initialize");
 const Chat = db.Chat;
 const Time = db.Time;
+const { Op } = require("sequelize");
 
 exports.createChat = async ({ name, msg, location, ip, uId }) => {
   try {
