@@ -4,11 +4,6 @@ const Chat = db.Chat;
 const Time = db.Time;
 const { Op } = require("sequelize");
 
-function removeTimeZone(date) {
-  const dateString = date.toISOString().slice(0, 19).replace("T", " ");
-  return dateString;
-}
-
 exports.createChat = async ({ name, msg, location, ip, uId }) => {
   try {
     const response = await Chat.create({

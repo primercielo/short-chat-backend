@@ -55,7 +55,7 @@ module.exports = (socket, io) => {
     io.emit("site-blocked");
   });
 
-  socket.on("view-incremented", (id) => {
-    social.incrementView(id, io);
+  socket.on("view-incremented", (data) => {
+    social.incrementView(data, io);
   });
 };
