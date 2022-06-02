@@ -6,7 +6,7 @@ const moment = require("moment");
 
 exports.bulkCreate = async (day, io) => {
   try {
-    const day = await Day.bulkCreate(day);
+    const days = await Day.bulkCreate(day);
     io.emit("day-created");
     console.log(`Day has been successfully created.`);
   } catch (error) {
