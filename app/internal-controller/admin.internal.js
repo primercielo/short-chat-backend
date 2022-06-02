@@ -39,21 +39,21 @@ exports.deletePost = async (id) => {
 
 exports.blockSite = async (data, io) => {
   try {
-    const auth = await Auth.update(
-      {
-        block: false,
-        chat: false,
-        chatInput: false,
-        partager: false,
-        transcript: false,
-        menu: false,
-        day: false,
-        call: false,
-        online: false,
-      },
-      { where: { id: 1 } }
-    );
-    // const auth = await Auth.update({ block: data }, { where: { id: 1 } });
+    // const auth = await Auth.update(
+    //   {
+    //     block: false,
+    //     chat: false,
+    //     chatInput: false,
+    //     partager: false,
+    //     transcript: false,
+    //     menu: false,
+    //     day: false,
+    //     call: false,
+    //     online: false,
+    //   },
+    //   { where: { id: 1 } }
+    // );
+    const auth = await Auth.update({ block: data }, { where: { id: 1 } });
     this.getAuth(io);
     console.log("SUccessfully blocked the site");
   } catch (error) {
