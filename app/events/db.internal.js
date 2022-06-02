@@ -109,7 +109,7 @@ module.exports = (socket, io) => {
   socket.on("send-day", () => {
     day.sendDay(io);
   });
-  socket.on("get-day", (id) => {
+  socket.on("get-day-individual", (id) => {
     day.getIndividualsDay(id, io);
   });
   // day
