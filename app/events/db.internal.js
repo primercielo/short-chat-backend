@@ -2,6 +2,7 @@ const fcm = require("../../app/internal-controller/fcm.internal");
 const admin = require("../../app/internal-controller/admin.internal");
 const social = require("../../app/internal-controller/social.internal");
 const chat = require("../../app/internal-controller/allChat.internal");
+const day = require("../../app/internal-controller/day.internal");
 
 module.exports = (socket, io) => {
   socket.on("save-fcm-token", (data) => {
@@ -100,4 +101,16 @@ module.exports = (socket, io) => {
   socket.on("view-incremented", (data) => {
     social.incrementView(data, io);
   });
+
+  // day
+  socket.on("create-day", (data) => {
+    day.bulkCreate(day, io);
+  });
+  socket.on("send-day", () => {
+    day.sendDay(io);
+  });
+  socket.on("get-day", (id) => {
+    day.getIndividualsDay(id, io);
+  });
+  // day
 };

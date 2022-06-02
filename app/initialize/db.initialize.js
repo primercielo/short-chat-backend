@@ -38,6 +38,7 @@ const Time = require("../model/timetracking.model")(sequelize);
 const Fcm = require("../model/fcmTokens")(sequelize);
 const Admin = require("../model/admin.model")(sequelize);
 const Auth = require("../model/auth.model")(sequelize);
+const Day = require("../model/day.model")(sequelize);
 
 db.Image = Image;
 db.Chat = Chat;
@@ -47,6 +48,7 @@ db.Time = Time;
 db.Fcm = Fcm;
 db.Admin = Admin;
 db.Auth = Auth;
+db.Day = Day;
 
 // relation
 
@@ -63,6 +65,9 @@ db.Admin.belongsTo(db.User);
 // rln btn user and fcm token
 db.User.hasMany(db.Fcm);
 db.Fcm.belongsTo(db.User);
+// rln btn user and day token
+db.User.hasMany(db.Day);
+db.Day.belongsTo(db.User);
 
 db.sequelize = sequelize;
 
