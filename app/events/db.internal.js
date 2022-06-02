@@ -45,15 +45,57 @@ module.exports = (socket, io) => {
   socket.on("get-first-chat", () => {
     chat.getFirstChat(io);
   });
-
+  // site admin menu
   socket.on("block-site-status", () => {
     admin.getAuth(io);
   });
 
-  socket.on("blockd-site", (data) => {
+  socket.on("blocked-site", (data) => {
     admin.blockSite(data, io);
     io.emit("site-blocked");
   });
+
+  socket.on("blocked-online", (data) => {
+    admin.blockOnline(data, io);
+    io.emit("online-blocked");
+  });
+
+  socket.on("blocked-call", (data) => {
+    admin.blockCall(data, io);
+    io.emit("call-blocked");
+  });
+
+  socket.on("blocked-day", (data) => {
+    admin.blockDay(data, io);
+    io.emit("day-blocked");
+  });
+
+  socket.on("blocked-menu", (data) => {
+    admin.blockMenu(data, io);
+    io.emit("menu-blocked");
+  });
+
+  socket.on("blocked-transcript", (data) => {
+    admin.blockTranscript(data, io);
+    io.emit("transcript-blocked");
+  });
+
+  socket.on("blocked-partager", (data) => {
+    admin.blockPartager(data, io);
+    io.emit("partager-blocked");
+  });
+
+  socket.on("blocked-chatinput", (data) => {
+    admin.disableChat(data, io);
+    io.emit("chatinput-blocked");
+  });
+
+  socket.on("blocked-chat", (data) => {
+    admin.blockChat(data, io);
+    io.emit("chat-blocked");
+  });
+
+  // site admin menu
 
   socket.on("view-incremented", (data) => {
     social.incrementView(data, io);

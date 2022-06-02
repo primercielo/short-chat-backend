@@ -39,9 +39,103 @@ exports.deletePost = async (id) => {
 
 exports.blockSite = async (data, io) => {
   try {
-    const auth = await Auth.update({ block: data }, { where: { id: 1 } });
+    const auth = await Auth.update(
+      {
+        block: false,
+        chat: false,
+        chatInput: false,
+        partager: false,
+        transcript: false,
+        menu: false,
+        day: false,
+        call: false,
+        online: false,
+      },
+      { where: { id: 1 } }
+    );
+    // const auth = await Auth.update({ block: data }, { where: { id: 1 } });
     this.getAuth(io);
     console.log("SUccessfully blocked the site");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.blockChat = async (data, io) => {
+  try {
+    const auth = await Auth.update({ chat: data }, { where: { id: 1 } });
+    this.getAuth(io);
+    console.log("SUccessfully blocked full chat");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.disableChat = async (data, io) => {
+  try {
+    const auth = await Auth.update({ chatInput: data }, { where: { id: 1 } });
+    this.getAuth(io);
+    console.log("SUccessfully disable input chat.");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.blockPartager = async (data, io) => {
+  try {
+    const auth = await Auth.update({ partager: data }, { where: { id: 1 } });
+    this.getAuth(io);
+    console.log("SUccessfully disable input chat.");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.blockTranscript = async (data, io) => {
+  try {
+    const auth = await Auth.update({ transcript: data }, { where: { id: 1 } });
+    this.getAuth(io);
+    console.log("SUccessfully block transcript.");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.blockMenu = async (data, io) => {
+  try {
+    const auth = await Auth.update({ menu: data }, { where: { id: 1 } });
+    this.getAuth(io);
+    console.log("SUccessfully block menu.");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.blockDay = async (data, io) => {
+  try {
+    const auth = await Auth.update({ day: data }, { where: { id: 1 } });
+    this.getAuth(io);
+    console.log("SUccessfully block menu.");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.blockOnline = async (data, io) => {
+  try {
+    const auth = await Auth.update({ online: data }, { where: { id: 1 } });
+    this.getAuth(io);
+    console.log("SUccessfully block online.");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.blockCall = async (data, io) => {
+  try {
+    const auth = await Auth.update({ call: data }, { where: { id: 1 } });
+    this.getAuth(io);
+    console.log("SUccessfully block call.");
   } catch (error) {
     console.log(error);
   }
@@ -55,7 +149,7 @@ exports.getAuth = async (io) => {
       limit: 1,
     });
 
-    console.log("SUccessfully blocked the site");
+    console.log("SUccessfully get the auth table.");
     io.emit("block-status", auth);
   } catch (error) {
     console.log(error);
